@@ -1,0 +1,88 @@
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <algorithm>
+#include <string>
+
+using namespace std;
+
+string temat, nick;
+string tresc[5];
+string odpa[5], odpb[5], odpc[5], odpd[5];
+string poprawna[5];
+string odp;
+int punkty=0;
+
+
+int main()
+{
+   int nrlinii = 1;
+   string linia;
+   int nrpytania=0;
+
+   fstream plik;
+   plik.open("quiz.txt",ios::in);
+
+   if (plik.good()==false)
+   {
+       cout << "Błąd ! Brak pliku !";
+       exit(0);
+   }
+   while (getline(plik, linia))
+   {
+       switch(nrlinii)
+       {
+           case 1: temat=linia;                 break;
+           case 2: nick=linia;                  break;
+           case 3: tresc[nrpytania] = linia;    break;
+           case 4: odpa[nrpytania] = linia;     break;
+           case 5: odpb[nrpytania] = linia;     break;
+           case 6: odpc[nrpytania] = linia;     break;
+           case 7: odpd[nrpytania] = linia;     break;
+           case 8: poprawna[nrpytania] = linia; break;
+       }
+       if(nrlinii==8) {nrlinii=2; nrpytania++; }
+       nrlinii++;
+   }
+
+  plik.close();
+
+  for (int i=0; i<=4; i++)
+  {
+    cout << endl << tresc[i] << endl;
+    cout << "A. "<<odpa[i] <<endl;
+    cout << "B. "<<odpb[i] <<endl;
+    cout << "C. "<<odpc[i] <<endl;
+    cout << "D. "<<odpd[i] <<endl;
+
+    cout << "Twoja odpowiedz: ";
+    cin >> odp;
+
+    transform(odp.begin(), odp.end(), odp.begin(), ::tolower);
+    if(odp==poprawna[i])
+    {
+        cout << "Dobra odpowiedz! +1 pkt" <<endl;
+        punkty++;
+    }
+    else  cout << "Zle! Poprawna odpowiedz to: " <<poprawna[i] <<endl;
+  }
+
+   cout << "Koniec :) Oto twoje punkty: " <<punkty <<endl;
+   if(punkty==5)
+   {
+       cout << "Zdobywasz MAXYMALNA ilosc punktow !" <<endl;
+   }
+   if(punkty==0)
+   {
+       cout << "ooou ale slabo" <<endl;
+   }
+   if(punkty==1)
+   {
+       cout << "pocwicz troche xd" <<endl;
+   }
+   if(punkty==2)
+   {
+       cout << "Mogloby byc lepiej..." <<endl;
+   }
+
+}
