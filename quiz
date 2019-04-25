@@ -14,7 +14,7 @@ string odp;
 int punkty=0;
 
 
-int main()
+int main() 
 {
    int nrlinii = 1;
    string linia;
